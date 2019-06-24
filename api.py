@@ -2,9 +2,7 @@ import fc
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 
-
 uploadFolderPath='uploads/'
-
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER']=uploadFolderPath
 
@@ -28,4 +26,4 @@ def upload_file():
       return str(res)
 		
 if __name__ == '__main__':
-   app.run(debug = True)
+   app.run(port=8080,debug = True)
