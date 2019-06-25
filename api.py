@@ -1,4 +1,5 @@
-import fc
+#import fc
+import json
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 from flask import jsonify
@@ -23,16 +24,17 @@ def upload_file():
          verifyImage = request.files['verify']
          if checkImage== None or verifyImage==None:
           resp['Message']="Please provide valid images."  
-          return Response(jsonify(resp),mimetype="application/json",status=403)
+          return Response(json.dumps(resp),mimetype="application/json",status=403)
          checkImage.filename="checkImage.jpg"
          verifyImage.filename="verifyImage.jpg"
          checkImage.save(secure_filename(checkImage.filename))
          verifyImage.save(secure_filename(verifyImage.filename))
-         resp['Message']=fc.checkImage(checkImage,verifyImage)[0]
-         return Response(jsonify(resp),mimetype="application/json",status=200)
+         #resp['Message']=fc.checkImage(checkImage,verifyImage)[0]
+         resp['Message']="True"
+         return Response(json.dumps(resp),mimetype="application/json",status=200)
       except Exception as e:
          resp['Message']="There is some exception "+str(e)
-         return Response(jsonify(resp),mimetype="application/json",status=500)
+         return Response(json.dumps(resp),mimetype="application/json",status=500)
 		
 if __name__ == '__main__':
    app.run(host='0.0.0.0',port=8080,debug = True)
