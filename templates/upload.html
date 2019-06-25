@@ -1,15 +1,59 @@
 <html>
    <head>
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <style>
+         .container{
+    justify-content: center;
+    align-items: center;
+}
+        .form-body{
+           margin-top: 4px;
+        }
+        .btn-div{
+           margin-top: 15px
+        }
+        .input-btn{
+           margin-top: 5px;
+           margin-left: 80px;
+        }
+      </style>
    </head>
    <body>
-      <form class='fr' method = "POST" enctype = "multipart/form-data">
-         <img id="checkImg" src="#" alt="Image 1" />
-         <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');"/><br><br>
-         <img id="verifyImg" src="#" alt="Image 2" />
-         <input type = "file" name = "verify" id="verifyInputId" onchange="readURL(this,'verifyImg');"/><br><br>
-         <input type = "submit"/>
-      </form>
+      
+      <div class="container">
+         <h2 class="text-center col-md-12">Age Verification POC</h2>
+         </Br>
+         </Br>
+            <form class='fr' method = "POST" enctype = "multipart/form-data">
+               <div class="col-md-12 form-body">
+                  <div class="col-md-6">
+                           <img id="checkImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 1" class="img-responsive"/>
+                           <br>
+                           <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');" class="input-btn"/>
+                  </div>   
+                  <div class="col-md-6">
+                           <img id="verifyImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 2" class="img-responsive" />
+                           <br>
+                           <input type = "file" name = "verify" id="verifyInputId" onchange="readURL(this,'verifyImg');" class="input-btn" />
+                  </div>
+               </div>
+               <div class="col-md-12 text-center btn-div"> 
+                     <input type = "submit" class="btn-primary" class="btn btn-primary"/>
+                     <br>
+                     <img  src="{{ url_for('static', filename = 'loader.gif') }}" alt="Loader" id="loader"/>
+               </div>
+               <div class="col-md-12 text-center btn-div" id="result"> 
+                     
+               </div>
+            </form>
+            
+      </div>
+      
+      
    </body>
  <script>
    function readURL(input,imgId) {
@@ -18,22 +62,30 @@
             reader.onload = function (e) {
                 $('#'+imgId)
                     .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
+                    .width(300)
+                    .height(300);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
+    $(document).ready(function(){
+       $("#loader").hide();
+    })
+    //var url="http://localhost:8080/uploader"
+    var url="http://35.194.56.65:8080/uploader" 
     $(document).on('submit', '.fr', function(){
+      $("#loader").show();
       $.ajax({ 
          type: 'post', 
-         url: "http://35.194.56.65:8080/uploader", 
+         url:url, 
          enctype: 'multipart/form-data',
          processData: false,
          contentType: false,
          data: new FormData(this) ,
          success: function(data) {
-               console.log(data);
+               $("#result").empty()
+               $("#result").append("<h2>"+data.Message+"</h2>")
+               $("#loader").hide();
          }
          });
          return false;
