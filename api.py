@@ -29,7 +29,7 @@ def upload_file():
          verifyImage.filename="verifyImage.jpg"
          checkImage.save(secure_filename(checkImage.filename))
          verifyImage.save(secure_filename(verifyImage.filename))
-         resp['Message']=fc.checkImage(checkImage,verifyImage)[0]
+         resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          return Response(json.dumps(resp),mimetype="application/json",status=200)
       except Exception as e:
          resp['Message']="There is some exception "+str(e)
