@@ -1,11 +1,42 @@
 <html>
+   <head>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   </head>
    <body>
-      <form action = "http://35.194.56.65:8080/uploader" method = "POST" 
-         enctype = "multipart/form-data">
-         <input type = "file" name = "check" /><br><br>
-         <input type = "file" name = "verify" /><br><br>
-         <input type = "submit"/><br><br>
-
+      <form class='fr' method = "POST" enctype = "multipart/form-data">
+         <img id="checkImg" src="#" alt="Image 1" />
+         <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');"/><br><br>
+         <img id="verifyImg" src="#" alt="Image 2" />
+         <input type = "file" name = "verify" id="verifyInputId" onchange="readURL(this,'verifyImg');"/><br><br>
+         <input type = "submit"/>
       </form>
    </body>
+ <script>
+   function readURL(input,imgId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#'+imgId)
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).on('submit', '.fr', function(){
+      $.ajax({ 
+         type: 'post', 
+         url: "http://35.194.56.65:8080/uploader", 
+         enctype: 'multipart/form-data',
+         processData: false,
+         contentType: false,
+         data: new FormData(this) ,
+         success: function(data) {
+               console.log(data);
+         }
+         });
+         return false;
+   });
+   </script>
 </html>
