@@ -11,7 +11,7 @@
     align-items: center;
 }
         .form-body{
-           margin-top: 4px;
+           margin-top: 8px;
            margin-left: 10%;
         }
         .btn-div{
@@ -37,6 +37,10 @@
          display: inline-block;
          font-size: 16px;
          }
+
+         img{
+            border: 5px solid black;
+         }
          
       </style>
    </head>
@@ -49,7 +53,7 @@
             <form class='fr' method = "POST" enctype = "multipart/form-data">
                <div class="col-md-12 form-body">
                   <div class="col-md-6">
-                           <img id="checkImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 1" class="img-responsive"/>
+                           <img id="checkImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 1" class="img-responsive"  />
                            <br>
                            <label for="checkInputId" class="lbl">
                                  <div class="text-center button">Upload Photo</div>
