@@ -1,6 +1,9 @@
 import fc
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
+from flask import jsonify
+from flask import Response
+
 
 uploadFolderPath='uploads/'
 app = Flask(__name__)
@@ -11,22 +14,25 @@ app.config['UPLOAD_FOLDER']=uploadFolderPath
 def home():
    return render_template('/upload.html')
 	
-@app.route('/uploader', methods = ['GET', 'POST'])
+@app.route('/uploader', methods = ['POST'])
 def upload_file():
+   resp=dict()
    if request.method == 'POST':
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
          if checkImage== None or verifyImage==None:
-          return render_template("result.html",res="Please provide two images")
+          resp['Message']="Please provide valid images."  
+          return Response(jsonify(resp),mimetype="application/json",status=403)
          checkImage.filename="checkImage.jpg"
          verifyImage.filename="verifyImage.jpg"
          checkImage.save(secure_filename(checkImage.filename))
          verifyImage.save(secure_filename(verifyImage.filename))
-         res=fc.checkImage(checkImage,verifyImage)
-         return render_template("result.html",res=res[0])
+         resp['Message']=fc.checkImage(checkImage,verifyImage)[0]
+         return Response(jsonify(resp),mimetype="application/json",status=200)
       except Exception as e:
-         return render_template("result.html",res="There was some error in comparing the given images")
+         resp['Message']="There is some exception "+str(e)
+         return Response(jsonify(resp),mimetype="application/json",status=500)
 		
 if __name__ == '__main__':
    app.run(host='0.0.0.0',port=8080,debug = True)
