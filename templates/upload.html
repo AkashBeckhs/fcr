@@ -12,14 +12,32 @@
 }
         .form-body{
            margin-top: 4px;
+           margin-left: 10%;
         }
         .btn-div{
            margin-top: 15px
         }
-        .input-btn{
-           margin-top: 5px;
-           margin-left: 80px;
+        .lbl{
+           margin-left: 70px;
         }
+        .fileInput {
+           display: none;
+         }
+         .in-btn{
+            padding: 15px 25px;
+            font-size: 16px;
+         }
+         .button {
+         background-color: #4CAF50; /* Green */
+         border: none;
+         color: white;
+         padding: 15px 25px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+         }
+         
       </style>
    </head>
    <body>
@@ -33,21 +51,26 @@
                   <div class="col-md-6">
                            <img id="checkImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 1" class="img-responsive"/>
                            <br>
-                           <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');" class="input-btn"/>
+                           <label for="checkInputId" class="lbl">
+                                 <div class="text-center button">Upload Photo</div>
+                           </label>
+                           <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');" class="input-btn" style="display:none;"/>
                   </div>   
                   <div class="col-md-6">
                            <img id="verifyImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 2" class="img-responsive" />
                            <br>
-                           <input type = "file" name = "verify" id="verifyInputId" onchange="readURL(this,'verifyImg');" class="input-btn" />
+                           <label for="verifyInputId" class="lbl">
+                                 <div class="text-center button">Upload Photo</div>
+                           </label>
+                           <input type = "file" name = "verify" id="verifyInputId" onchange="readURL(this,'verifyImg');" style="display:none;" />
                   </div>
                </div>
                <div class="col-md-12 text-center btn-div"> 
-                     <input type = "submit" class="btn-primary" class="btn btn-primary"/>
+                     <input type = "submit" class="btn-primary in-btn" class="btn btn-primary" value="Compare Faces"/>
                      <br>
                      <img  src="{{ url_for('static', filename = 'loader.gif') }}" alt="Loader" id="loader"/>
                </div>
                <div class="col-md-12 text-center btn-div" id="result"> 
-                     
                </div>
             </form>
             
@@ -71,8 +94,11 @@
     $(document).ready(function(){
        $("#loader").hide();
     })
-    //var url="http://localhost:8080/uploader"
-    var url="http://35.194.56.65:8080/uploader" 
+
+    try{
+
+   var url="http://35.194.56.65:8080/uploader" 
+   //var url="http://localhost:8080/uploader"
     $(document).on('submit', '.fr', function(){
       $("#loader").show();
       $.ajax({ 
@@ -86,9 +112,23 @@
                $("#result").empty()
                $("#result").append("<h2>"+data.Message+"</h2>")
                $("#loader").hide();
+         },
+         error:function(){
+               $("#result").empty()
+               $("#result").append("<h2>There was some error, Please try again!!</h2>")
+               $("#loader").hide();
          }
          });
          return false;
-   });
+        });
+    }
+    catch{
+      $("#result").empty()
+      $("#result").append("<h2>There was some error, Please try again!!</h2>")
+      $("#loader").hide();
+    }
+    
+    
+    
    </script>
 </html>
