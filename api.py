@@ -18,11 +18,14 @@ def home():
 	
 @app.route('/uploader', methods = ['POST'])
 def upload_file():
+   print("Inside upload method")
    resp=dict()
    if request.method == 'POST':
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
+         print(checkImage)
+         print(verifyImage)
          if checkImage== None or verifyImage==None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
