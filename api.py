@@ -1,4 +1,4 @@
-#import fc
+import fc
 import json
 from flask import Flask, render_template, request,send_from_directory
 from werkzeug.utils import secure_filename
@@ -34,7 +34,7 @@ def upload_file():
          checkImage.save(secure_filename(checkImage.filename))
          verifyImage.save(secure_filename(verifyImage.filename))
          startTime=time.time()
-         #resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
+         resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          endTime=time.time()
          print(endTime-startTime)
          return Response(json.dumps(resp),mimetype="application/json",status=200)
