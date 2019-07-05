@@ -3,7 +3,7 @@ from PIL import Image
 import datetime
 
 
-face = Image.open('lena.png').crop((75, 90, 150, 150))
+face = Image.open('logo.png').crop((45,40,150,150))
 qr_big = qrcode.QRCode(
     error_correction=qrcode.constants.ERROR_CORRECT_H
 )
