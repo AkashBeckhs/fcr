@@ -78,7 +78,7 @@ def registerImage():
       imageFilePath="/img/"+image.filename
       image.save(secure_filename(upload_file+image.filename))
       db.insertIntoFcr(enc=encodings,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
-      resp['image']=imageFilePath]
+      resp['image']=imageFilePath
       resp['qr']=qr_code
       resp['unique_id']=unique_id
       return Response(json.dumps(resp),mimetype="application/json",status=200)
