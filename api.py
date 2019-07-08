@@ -81,10 +81,11 @@ def registerImage():
       resp['image']=imageFilePath
       resp['qr']=qr_code
       resp['unique_id']=unique_id
+      resp['message']="None"
       return Response(json.dumps(resp),mimetype="application/json",status=200)
    except Exception as e:
-      resp['error']=str(e)
-      return Response(json.dumps(resp),mimetype="application/json",status=200) 
+      resp['message']=str(e)
+      return Response(json.dumps(resp),mimetype="application/json",status=500) 
 
 
 

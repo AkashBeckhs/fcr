@@ -115,12 +115,12 @@
          data: new FormData(this) ,
          success: function(data) {
                $("#result").empty()
-               $("#result").append("<h2>"+data+"</h2>")
+               $("#result").append("<h2>"+data.message+"</h2>")
                $("#loader").hide();
          },
-         error:function(){
+         error:function(data){
                $("#result").empty()
-               $("#result").append("<h2>There was some error, Please try again!!</h2>")
+               $("#result").append("<h2>There was some error, Please try again!!</h2>"+data.message)
                $("#loader").hide();
          }
          });
