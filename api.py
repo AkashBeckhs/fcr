@@ -106,7 +106,7 @@ def getQrCode(filepath):
    return send_from_directory('data', filepath)
    
 @app.route('/img/<path:filepath>')
-def getQrCode(filepath):
+def getImageFiles(filepath):
    return send_from_directory('data/img', filepath)
 
    
