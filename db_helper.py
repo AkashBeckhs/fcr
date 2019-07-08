@@ -15,7 +15,7 @@ def insert(img1):
     try:
         conn=getDbObject()
         cursor=conn.cursor()
-        sql="insert into vectors(vector) values(cube(array["+str(img1)+"]))"
+        sql="insert into vectors(vector) values(cube(array"+str(img1)+"))"
         print(sql)
         cursor
     except Exception as e:
