@@ -77,6 +77,7 @@ def registerImage():
       encodings=fc.getEncodings(image)
       imageFilePath="/img/"+str(image.filename)
       image.save(secure_filename(uploadFolderPath+str(image.filename)))
+      print(unique_id)
       print("Image stored")
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
