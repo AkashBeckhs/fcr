@@ -37,6 +37,7 @@ def checkImage(img):
         return rows
     except Exception as e:
         print("Exception while fetching "+str(e))
+        return None
     finally:
         conn.close()
 
