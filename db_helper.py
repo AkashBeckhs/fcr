@@ -47,7 +47,7 @@ def insertIntoFcr(enc,img_path,qr_code,unique_id):
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="INSERT INTO fcr(encodings,img_path,qr_code_path,unq_id) values(array"+str(enc)+",'"+img_path+"','"+qr_code+"',"+str(unique_id)+")"
+        sql="INSERT INTO fcr(vector,img_path,qr_code_path,unq_id) values(array"+str(enc)+",'"+img_path+"','"+qr_code+"',"+str(unique_id)+")"
         print(sql)
         cursor.execute(sql)
     except Exception as e:
