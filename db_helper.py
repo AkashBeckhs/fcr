@@ -27,4 +27,18 @@ def insert(img1):
         conn.close()
 
 
+def checkImage(img):
+    conn=getDbObject()
+    cursor=conn.cursor()
+    try:
+        sql="SELECT id from vectors where (cube(array"+img+") <-> vecotors)<=0.52 limit 1"
+        print(sql)
+        rows=cursor.fetchall(sql)
+        return rows
+    except Exception as e:
+        print("Exception while fetching "+str(e))
+    finally:
+        conn.close()
+
+
    

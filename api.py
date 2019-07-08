@@ -42,6 +42,29 @@ def upload_file():
          resp['Message']="There is some exception "+str(e)
          return Response(json.dumps(resp),mimetype="application/json",status=500)
 
+
+
+@app.route('/verify', methods = ['GET'])
+def verifyImagePage():
+   return render_template('/verify.html')
+
+@app.route('/verify', methods = ['POST'])
+def checkImage():
+   print("Inside upload method")
+   resp=dict()
+   if request.method == 'POST':
+      try:
+         checkImage = request.files['check']
+         print(checkImage)
+         if checkImage== None:
+          resp['Message']="Please provide valid images."  
+          return Response(json.dumps(resp),mimetype="application/json",status=403)
+         rows=fc.verifyImage(checkImage)
+         return Response(json.dumps(rows),mimetype="application/json",status=200)
+      except Exception as e:
+         resp['Message']="There is some exception "+str(e)
+         return Response(json.dumps(resp),mimetype="application/json",status=500)
+
 @app.route('/qrcode')
 def getQrCodePath():
    resp= dict()

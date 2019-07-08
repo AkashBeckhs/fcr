@@ -1,0 +1,139 @@
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      <style>
+         .container{
+    justify-content: center;
+    align-items: center;
+}
+        .form-body{
+           margin-top: 40px;
+           margin-left: 10%;
+        }
+        .btn-div{
+           margin-top: 15px
+        }
+        .lbl{
+           margin-left: 70px;
+        }
+        .fileInput {
+           display: none;
+         }
+         .in-btn{
+            padding: 15px 25px;
+            font-size: 16px;
+         }
+         .button {
+         background-color: #4CAF50; /* Green */
+         border: none;
+         color: white;
+         padding: 15px 25px;
+         text-align: center;
+         text-decoration: none;
+         display: inline-block;
+         font-size: 16px;
+         }
+
+         img{
+            border: 2px solid black;
+         }
+         
+      </style>
+   </head>
+   <body>
+      
+      <div class="container">
+         <h2 class="text-center col-md-12">Age Verification POC</h2>
+         </Br>
+         </Br>
+            <form class='fr' method = "POST" enctype = "multipart/form-data">
+               <div class="col-md-12 form-body">
+                  <div class="col-md-6">
+                           <img id="checkImg" src="{{ url_for('static', filename = 'def-icon.jpg') }}" alt="Image 1" class="img-responsive"  />
+                           <br>
+                           <label for="checkInputId" class="lbl">
+                                 <div class="text-center button">Upload Photo</div>
+                           </label>
+                           <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');" class="input-btn" style="display:none;"/>
+                  </div>   
+               </div>
+               <div class="col-md-12 text-center btn-div"> 
+                     <input type = "submit" class="btn-primary in-btn"  value="Compare Faces"/>
+                     <br>
+                     <label style="margin-top: 15px" >
+                           <div class="text-center button" onclick="location.reload()" style="padding: 15px 25px">Clear Screen</div>
+                     </label>
+                     <br>
+                     <img  src="{{ url_for('static', filename = 'loader.gif') }}" alt="Loader" id="loader" />
+               </div>
+               <div class="col-md-12 text-center btn-div" id="result"> 
+               </div>
+            </form>
+            
+      </div>
+      
+      
+   </body>
+ <script>
+
+   function reset(){
+      location.reload();
+   }
+   function readURL(input,imgId) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#'+imgId)
+                    .attr('src', e.target.result)
+                    .width(300)
+                    .height(300);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function(){
+       $("#loader").hide();
+    })
+
+    try{
+
+   var url="http://35.194.56.65:8080/verify" 
+   //var url="http://localhost:8080/uploader"
+    $(document).on('submit', '.fr', function(){
+      $("#result").empty()
+      $("#loader").show();
+      $.ajax({ 
+         type: 'post', 
+         url:url, 
+         enctype: 'multipart/form-data',
+         processData: false,
+         contentType: false,
+         data: new FormData(this) ,
+         success: function(data) {
+               $("#result").empty()
+               $("#result").append("<h2>"+data.Message+"</h2>")
+               $("#loader").hide();
+         },
+         error:function(){
+               $("#result").empty()
+               $("#result").append("<h2>There was some error, Please try again!!</h2>")
+               $("#loader").hide();
+         }
+         });
+         return false;
+        });
+    }
+    catch{
+      $("#result").empty()
+      $("#result").append("<h2>There was some error, Please try again in catch!!</h2>")
+      $("#loader").hide();
+    }
+    
+    
+    
+   </script>
+</html>

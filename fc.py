@@ -10,3 +10,16 @@ def checkImage(img1,img2):
     db.insert(biden_encoding.tolist())
     results = face_recognition.compare_faces([biden_encoding], unknown_encoding,tolerance=0.52)
     return results
+
+def getEncodings(img):
+    known_image = face_recognition.load_image_file(img1)
+    encodings = face_recognition.face_encodings(known_image,num_jitters=1)[0]
+    return encodings
+
+
+def verifyImage(img):
+    enc=getEncodings(img)
+    rows=db.checkImage(enc)
+    print(rows)
+    return rows
+    
