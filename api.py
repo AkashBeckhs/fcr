@@ -84,6 +84,7 @@ def registerImage():
       resp['message']="None"
       return Response(json.dumps(resp),mimetype="application/json",status=200)
    except Exception as e:
+      print(e)
       resp['message']=str(e)
       return Response(json.dumps(resp),mimetype="application/json",status=500) 
 
