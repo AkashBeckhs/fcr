@@ -33,7 +33,8 @@ def checkImage(img):
     try:
         sql="SELECT id from vectors where (cube(array"+str(img)+") <-> vectors)<=0.52 limit 1"
         print(sql)
-        rows=cursor.fetchall(sql)
+        cursor.execute(sql)
+        rows=cursor.fetchall()
         return rows
     except Exception as e:
         print("Exception while fetching "+str(e))
