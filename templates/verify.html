@@ -58,7 +58,7 @@
                            <label for="checkInputId" class="lbl">
                                  <div class="text-center button">Upload Photo</div>
                            </label>
-                           <input type = "file" name = "check"  id="checkInputId" onchange="readURL(this,'checkImg');" class="input-btn" style="display:none;"/>
+                           <input type = "file" name = "image"  id="checkInputId" onchange="readURL(this,'checkImg');" class="input-btn" style="display:none;"/>
                   </div>   
                </div>
                <div class="col-md-12 text-center btn-div"> 
@@ -101,7 +101,7 @@
 
     try{
 
-   var url="http://35.194.56.65:8080/verify" 
+   var url="http://35.194.56.65:8080/register" 
    //var url="http://localhost:8080/uploader"
     $(document).on('submit', '.fr', function(){
       $("#result").empty()
