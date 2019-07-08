@@ -12,13 +12,19 @@ def getDbObject():
 
 
 def insert(img1):
+    conn=getDbObject()
+    cursor=conn.cursor()
     try:
-        conn=getDbObject()
-        cursor=conn.cursor()
         sql="insert into vectors(vector) values(cube(array"+str(img1)+"))"
         print(sql)
+        print("excuting sql......!")
         cursor.execute(sql)
+        print("sql executed")
+        conn.commit()            
     except Exception as e:
         print("Exception while saving vector "+str(e))
+    finally:
+        conn.close()
+
 
    
