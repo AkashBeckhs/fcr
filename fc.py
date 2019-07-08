@@ -20,7 +20,8 @@ def getEncodings(img):
 def verifyImage(img):
     enc=getEncodings(img)
     enc=enc.tolist()
-    print("Encodings "+str(enc))
+    print("Encodings ")
+    print(enc)
     rows=db.checkImage(enc)
     print(rows)
     return rows
