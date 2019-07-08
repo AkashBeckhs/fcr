@@ -2,7 +2,7 @@ import psycopg2 as ps
 
 host='127.0.0.1'
 port="5432"
-db="test"
+db="postgres"
 user="pg"
 password="admin"
 
