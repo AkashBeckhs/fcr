@@ -6,11 +6,12 @@ from flask import jsonify
 from flask import Response
 import qrcode_qpi as qr
 import time
+from random import randint
+import db_helper as db
 
 
-uploadFolderPath='uploads/'
+uploadFolderPath='/data/uploads/'
 app = Flask(__name__)
-
 
 @app.route('/upload')
 def home():
@@ -65,6 +66,29 @@ def checkImage():
          resp['Message']="There is some exception "+str(e)
          return Response(json.dumps(resp),mimetype="application/json",status=500)
 
+
+@app.route('/register',methods=["POST"])
+def registerImage():
+   resp= dict()
+   try:
+      image = request.files['image']
+      qr_code=qr.generateQrCode()
+      unique_id=randint(99999,99999999)
+      encodings=fc.getEncodings(image)
+      imageFilePath="/img/"+image.filename
+      image.save(secure_filename(upload_file+image.filename))
+      db.insertIntoFcr(enc=encodings,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      resp['image'=imageFilePath]
+      resp['qr']=qr_code
+      resp['unique_id']=unique_id
+      return Response(json.dumps(resp),mimetype="application/json",status=200)
+   except Exception as e:
+      resp['error']=str(e)
+      return Response(json.dumps(resp),mimetype="application/json",status=200) 
+
+
+
+
 @app.route('/qrcode')
 def getQrCodePath():
    resp= dict()
@@ -80,6 +104,10 @@ def getQrCodePath():
 @app.route('/data/<path:filepath>')
 def getQrCode(filepath):
    return send_from_directory('data', filepath)
+   
+@app.route('/img/<path:filepath>')
+def getQrCode(filepath):
+   return send_from_directory('data/img', filepath)
 
    
 if __name__ == '__main__':
