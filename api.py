@@ -75,7 +75,7 @@ def registerImage():
       qr_code=qr.generateQrCode()
       unique_id=randint(99999,99999999)
       encodings=fc.getEncodings(image)
-      imageFilePath="/img/"+image.filename
+      imageFilePath="/img/"+str(image.filename)
       image.save(secure_filename(upload_file+image.filename))
       db.insertIntoFcr(enc=encodings,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
