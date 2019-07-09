@@ -26,7 +26,8 @@ def registerImage(image):
       qr_code="data/"+qr.generateQrCode()
       unique_id=randint(99999,1000000)
       image.filename="img_"+str(unique_id)+".png"
-      #encodings=fc.getEncodings(image)
+      tempImage=image
+      encodings=fc.getEncodings(tempImage)
       fileName=secure_filename(image.filename)
       imageFilePath="/data/uploads"+str(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
