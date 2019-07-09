@@ -8,7 +8,7 @@ qr_big = qrcode.QRCode(
     error_correction=qrcode.constants.ERROR_CORRECT_H
 )
 
- def generateQrCode():
+def generateQrCode():
     timestamp=datetime.datetime.now()
     timestampStr = timestamp.strftime(" %d-%b-%Y (%H:%M:%S.%f)")
     qr_big.add_data(timestampStr)
