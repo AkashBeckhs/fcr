@@ -10,8 +10,8 @@ from random import randint
 import db_helper as db
 
 
-uploadFolderPath='data/uploads/'
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER']='/data/uploads'
 
 @app.route('/upload')
 def home():
@@ -76,9 +76,7 @@ def registerImage():
       unique_id=randint(99999,1000000)
       encodings=fc.getEncodings(image)
       imageFilePath="/img/"+str(image.filename)
-      saveimagePath=uploadFolderPath+str(image.filename)
-      print(saveimagePath)
-      image.save(secure_filename(saveimagePath))
+      image.save(secure_filename(image.filename))
       print(unique_id)
       print("Image stored")
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
