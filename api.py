@@ -50,9 +50,9 @@ def upload_file():
    resp=dict()
    if request.method == 'POST':
       try:
-         tempImage=request.files['check']
          checkImage = request.files['check']
          verifyImage = request.files['verify']
+         imagePath=saveImage(checkImage)
          if checkImage== None or verifyImage==None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
@@ -60,16 +60,17 @@ def upload_file():
          result,encodings=fc.checkImage(checkImage,verifyImage)
          resp=registerImage(encodings,"no")
          resp['Message']=str(result[0])
-         imagePath=saveImage(tempImage)
          endTime=time.time()
          print(endTime-startTime)
-         checkImage.close()
-         verifyImage.close()
          return Response(json.dumps(resp),mimetype="application/json",status=200)
       except Exception as e:
          print(e)
          resp['Message']="There is some exception "+str(e)
          return Response(json.dumps(resp),mimetype="application/json",status=500)
+      finally:
+         checkImage.close()
+         verifyImage.close()
+
 
 
 @app.route("/fetch/<uid>",methods=['GET'])
