@@ -27,7 +27,9 @@ def registerImage(image):
       unique_id=randint(99999,1000000)
       encodings=fc.getEncodings(image)
       fileName=secure_filename(image.filename)
-      image.save(secure_filename(fileName))
+      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
+      image.close()
+      
       imageFilePath="/data/uploads"+str(image.filename)
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
