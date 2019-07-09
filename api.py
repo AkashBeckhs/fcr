@@ -55,8 +55,8 @@ def upload_file():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
-         resp['Message'],encodings=str(fc.checkImage(checkImage,verifyImage)[0])
-         resp=registerImage(checkImage,encodings)
+         resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
+         #resp=registerImage(checkImage,encodings)
          endTime=time.time()
          print(endTime-startTime)
          checkImage.close()

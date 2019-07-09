@@ -8,7 +8,7 @@ def checkImage(img1,img2):
     biden_encoding = face_recognition.face_encodings(known_image,num_jitters=1)[0]
     unknown_encoding = face_recognition.face_encodings(unknown_image,num_jitters=1)[0]
     results = face_recognition.compare_faces([biden_encoding], unknown_encoding,tolerance=0.52)
-    return (results,biden_encoding)
+    return results
 
 def getEncodings(img):
     known_image = face_recognition.load_image_file(img)
