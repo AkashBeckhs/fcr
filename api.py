@@ -20,7 +20,7 @@ def home():
 
 
 @app.route('/unlock')
-def home():
+def unlock():
    return render_template('/check.html')
 	
 def saveImage(image,name):
