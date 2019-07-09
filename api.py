@@ -74,7 +74,7 @@ def upload_file():
 
 @app.route("/fetch/<uid>",methods=['GET'])
 def fetchData(uid):
-    assert uid = request.view_args['uid']
+    assert uid == request.view_args['uid']
     if uid is not None:
        resp=db.fetchDataOnId(uid)
        return Response(json.dumps(resp),mimetype="application/json",status=200)
