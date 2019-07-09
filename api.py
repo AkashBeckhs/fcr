@@ -23,17 +23,18 @@ def home():
 def registerImage(image):
    resp= dict()
    try:
-      #qr_code="data/"+qr.generateQrCode()
-      #unique_id=randint(99999,1000000)
-      #encodings=fc.getEncodings(image)
+      qr_code="data/"+qr.generateQrCode()
+      unique_id=randint(99999,1000000)
+      image.filename="img_"+str(unique_id)+".png"
+      encodings=fc.getEncodings(image)
       fileName=secure_filename(image.filename)
+      imageFilePath="/data/uploads"+str(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
-      #imageFilePath="/data/uploads"+str(image.filename)
-      #db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
-      #resp['image']=imageFilePath
-      #resp['qr']=qr_code
-      #resp['unique_id']=unique_id
-      #resp['error']="None"
+      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      resp['image']=imageFilePath
+      resp['qr']=qr_code
+      resp['unique_id']=unique_id
+      resp['error']="None"
       return resp
    except Exception as e:
       print("inside register image")
@@ -53,8 +54,8 @@ def upload_file():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
+         resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          resp=registerImage(checkImage)
-         #resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          endTime=time.time()
          print(endTime-startTime)
          checkImage.close()
