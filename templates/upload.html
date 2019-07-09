@@ -109,7 +109,7 @@
 
     try{
 
-   var url="http://35.194.56.65:8080/uploader" 
+   var url="http://35.194.56.65:8080/uploader/register" 
    //var url="http://localhost:8080/uploader"
     $(document).on('submit', '.fr', function(){
       $("#result").empty()
@@ -124,7 +124,7 @@
          success: function(data) {
                $("#result").empty()
                if(data.Message=="True"){
-                  $("#result").append("<h2>"+data.Message+"</h2></br>")
+                  $("#result").append("<h2>"+User verified+"</h2></br>")
                }
                
                $("#result").append("<h2>"+data.unique_id+"</h2>")
