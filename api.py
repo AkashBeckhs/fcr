@@ -47,6 +47,7 @@ def registerImage(encodings,imageFilePath,unique_id,status):
       else:
          resp['unique_id']="Not verified"
          resp['error']="None"
+         return resp
    except Exception as e:
       print("inside register image")
       print(e)
