@@ -10,7 +10,7 @@ from random import randint
 import db_helper as db
 
 
-uploadFolderPath='/data/uploads/'
+uploadFolderPath='data/uploads/'
 app = Flask(__name__)
 
 @app.route('/upload')
