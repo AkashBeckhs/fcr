@@ -3,15 +3,17 @@ from PIL import Image
 import datetime
 
 
-face = Image.open('logo.png').crop((45,40,150,150))
+face = Image.open('logo.png').crop((45,50,80,80))
 qr_big = qrcode.QRCode(
     error_correction=qrcode.constants.ERROR_CORRECT_H
 )
 
-def generateQrCode():
+def generateQrCode(status,id):
     timestamp=datetime.datetime.now()
     timestampStr = timestamp.strftime(" %d-%b-%Y (%H:%M:%S.%f)")
     qr_big.add_data(timestampStr)
+    qr_big.add_data(id)
+    qr_big.add_data(status)
     qr_big.make()
     img_qr_big = qr_big.make_image().convert('RGB')
     pos = ((img_qr_big.size[0] - face.size[0]) // 2, (img_qr_big.size[1] - face.size[1]) // 2)
@@ -23,7 +25,7 @@ def generateQrCode():
 
 
 if(__name__=="__main__"):
-    print(generateQrCode())
+    print(generateQrCode("#v","#"+str(2)))
 
 
    

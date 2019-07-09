@@ -18,8 +18,6 @@ app.config['UPLOAD_FOLDER']='data/uploads/'
 def home():
    return render_template('/upload.html')
 	
-
-
 def saveImage(image,name):
       try:
          image.filename="img_"+str(name)+".png"
@@ -35,11 +33,11 @@ def getUniqueId():
    return randint(99999,1000000)
 
 
-def registerImage(encodings,imageFilePath,unique_id):
+def registerImage(encodings,imageFilePath,unique_id,status):
    resp= dict()
    try:
       qr_code="/data/"+qr.generateQrCode()
-      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id,status)
       resp['image']=imageFilePath
       resp['qr']=qr_code
       resp['unique_id']=unique_id
@@ -66,7 +64,7 @@ def upload_file():
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
          result,encodings=fc.checkImage(checkImage,verifyImage)
-         resp=registerImage(encodings,imageFilePath,uid)
+         resp=registerImage(encodings,imageFilePath,uid,result)
          resp['Message']=str(result[0])
          endTime=time.time()
          print(endTime-startTime)

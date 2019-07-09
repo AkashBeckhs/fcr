@@ -43,11 +43,11 @@ def checkImage(img):
         conn.close()
 
 
-def insertIntoFcr(enc,img_path,qr_code,unique_id):
+def insertIntoFcr(enc,img_path,qr_code,unique_id,status):
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="INSERT INTO fcr(vector,img_path,qr_code_path,unq_id) values(cube(array"+str(enc)+"),'"+img_path+"','"+qr_code+"',"+str(unique_id)+")"
+        sql="INSERT INTO fcr(vector,img_path,qr_code_path,unq_id,status) values(cube(array"+str(enc)+"),'"+img_path+"','"+qr_code+"',"+str(unique_id)+","+status+")"
         print(sql)
         cursor.execute(sql)
     except Exception as e:
@@ -61,13 +61,14 @@ def fetchDataOnId(id):
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="select unq_id,img_path,qr_code_path from fcr where unq_id="+str(id)
+        sql="select unq_id,status,img_path,qr_code_path from fcr where unq_id="+str(id)
         cursor.execute(sql)
         rows=cursor.fetchall()
         for row in rows:
             resp['Unique_Id']=row[0]
-            resp['image']=row[1]
-            resp['qr_code']=row[2]
+            resp['status']=row[1]
+            resp['image']=row[2]
+            resp['qr_code']=row[3]
         return resp
     except Exception as e:
         print(e)
