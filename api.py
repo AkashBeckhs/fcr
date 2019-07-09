@@ -60,7 +60,7 @@ def registerImage(encodings,imageFilePath,unique_id,status):
       return resp
 
 @app.route('/uploader/<flag>', methods = ['POST'])
-def upload_file(flag):
+def upload_file(flag="register"):
    print("Inside upload method")
    resp=dict()
    if request.method == 'POST':
