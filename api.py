@@ -36,15 +36,17 @@ def getUniqueId():
 def registerImage(encodings,imageFilePath,unique_id,status):
    resp= dict()
    try:
-      id="#"+str(unique_id)
-      st="#"+str(status)
-      qr_code="/data/"+qr.generateQrCode(id,st)
-      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id,status=status)
-      resp['image']=imageFilePath
-      resp['qr']=qr_code
-      resp['unique_id']=unique_id
-      resp['error']="None"
-      return resp
+      if status ==True:
+         id="#"+str(unique_id)
+         st="#"+str(status)
+         qr_code="/data/"+qr.generateQrCode(id,st)
+         db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id,status=status)
+         resp['unique_id']=unique_id
+         resp['error']="None"
+         return resp
+      else:
+         resp['unique_id']="Not verified"
+         resp['error']="None"
    except Exception as e:
       print("inside register image")
       print(e)
