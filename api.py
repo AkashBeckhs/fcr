@@ -28,8 +28,6 @@ def registerImage(image):
       encodings=fc.getEncodings(image)
       fileName=secure_filename(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
-      image.close()
-      
       imageFilePath="/data/uploads"+str(image.filename)
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
@@ -51,16 +49,19 @@ def upload_file():
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
-         resp=registerImage(checkImage)
          if checkImage== None or verifyImage==None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
+         resp=registerImage(checkImage)
          resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          endTime=time.time()
          print(endTime-startTime)
+         checkImage.close()
+         verifyImage.close()
          return Response(json.dumps(resp),mimetype="application/json",status=200)
       except Exception as e:
+         print(e)
          resp['Message']="There is some exception "+str(e)
          return Response(json.dumps(resp),mimetype="application/json",status=500)
 
