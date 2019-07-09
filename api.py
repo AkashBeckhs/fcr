@@ -17,6 +17,11 @@ app.config['UPLOAD_FOLDER']='data/uploads/'
 @app.route('/upload')
 def home():
    return render_template('/upload.html')
+
+
+@app.route('/unlock')
+def home():
+   return render_template('/check.html')
 	
 def saveImage(image,name):
       try:
