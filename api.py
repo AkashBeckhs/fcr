@@ -50,6 +50,7 @@ def upload_file():
    resp=dict()
    if request.method == 'POST':
       try:
+         tempImage=request.files['check']
          checkImage = request.files['check']
          verifyImage = request.files['verify']
          if checkImage== None or verifyImage==None:
@@ -57,10 +58,9 @@ def upload_file():
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
          result,encodings=fc.checkImage(checkImage,verifyImage)
-         imagePath=saveImage(checkImage)
          resp=registerImage(encodings,imagePath)
-         resp['image_path']=imagePath
          resp['Message']=str(result[0])
+         imagePath=saveImage(tempImage)
          endTime=time.time()
          print(endTime-startTime)
          checkImage.close()
