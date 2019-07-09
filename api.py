@@ -20,17 +20,18 @@ def home():
 	
 
 
-def registerImage(image,encodings):
+def saveImage(image):
+      fileName=secure_filename(image.filename)
+      imageFilePath="/data/uploads"+str(image.filename)
+      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
+      return imageFilePath
+
+
+def registerImage(encodings,imageFilePath):
    resp= dict()
    try:
       qr_code="data/"+qr.generateQrCode()
       unique_id=randint(99999,1000000)
-      image.filename="img_"+str(unique_id)+".png"
-      tempImage=image
-      encodings=fc.getEncodings(tempImage)
-      fileName=secure_filename(image.filename)
-      imageFilePath="/data/uploads"+str(image.filename)
-      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
       db.insertIntoFcr(enc=None,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
       resp['qr']=qr_code
@@ -56,7 +57,9 @@ def upload_file():
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
          result,encodings=fc.checkImage(checkImage,verifyImage)
-         resp=registerImage(checkImage,encodings)
+         imagePath=saveImage(checkImage)
+         resp=registerImage(encodings,imagePath)
+         resp['image_path']=imagePath
          resp['Message']=str(result[0])
          endTime=time.time()
          print(endTime-startTime)
