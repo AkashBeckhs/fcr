@@ -123,10 +123,7 @@
          data: new FormData(this) ,
          success: function(data) {
                $("#result").empty()
-               if(data.Message=="True"){
-                  $("#result").append("<h2>"+User verified+"</h2></br>")
-               }
-               
+               $("#result").append("<h2>"+data.Message+"</h2>")
                $("#result").append("<h2>"+data.unique_id+"</h2>")
                $("#loader").hide();
          },
