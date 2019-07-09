@@ -23,17 +23,17 @@ def home():
 def registerImage(image):
    resp= dict()
    try:
-      qr_code="data/"+qr.generateQrCode()
-      unique_id=randint(99999,1000000)
-      encodings=fc.getEncodings(image)
+      #qr_code="data/"+qr.generateQrCode()
+      #unique_id=randint(99999,1000000)
+      #encodings=fc.getEncodings(image)
       fileName=secure_filename(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
-      imageFilePath="/data/uploads"+str(image.filename)
-      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
-      resp['image']=imageFilePath
-      resp['qr']=qr_code
-      resp['unique_id']=unique_id
-      resp['error']="None"
+      #imageFilePath="/data/uploads"+str(image.filename)
+      #db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      #resp['image']=imageFilePath
+      #resp['qr']=qr_code
+      #resp['unique_id']=unique_id
+      #resp['error']="None"
       return resp
    except Exception as e:
       print("inside register image")
