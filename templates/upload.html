@@ -123,7 +123,8 @@
          data: new FormData(this) ,
          success: function(data) {
                $("#result").empty()
-               $("#result").append("<h2>"+data.Message+"</h2>")
+               $("#result").append("<h2>"+data.Message+"</h2></br>")
+               $("#result").append("<h2>"+data.unique_id+"</h2>")
                $("#loader").hide();
          },
          error:function(){

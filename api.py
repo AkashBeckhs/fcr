@@ -18,6 +18,29 @@ app.config['UPLOAD_FOLDER']='data/uploads'
 def home():
    return render_template('/upload.html')
 	
+
+
+def registerImage(image):
+   resp= dict()
+   try:
+      qr_code=qr.generateQrCode()
+      unique_id=randint(99999,1000000)
+      encodings=fc.getEncodings(image)
+      imageFilePath="/img/"+str(image.filename)
+      fileName=secure_filename(image.filename)
+      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
+      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      resp['image']=imageFilePath
+      resp['qr']=qr_code
+      resp['unique_id']=unique_id
+      resp['error']="None"
+      return resp
+   except Exception as e:
+      print("inside register image")
+      print(e)
+      resp['error']=str(e)
+      return resp
+
 @app.route('/uploader', methods = ['POST'])
 def upload_file():
    print("Inside upload method")
@@ -33,9 +56,8 @@ def upload_file():
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          checkImage.filename="checkImage.jpg"
          verifyImage.filename="verifyImage.jpg"
-         checkImage.save(secure_filename(checkImage.filename))
-         verifyImage.save(secure_filename(verifyImage.filename))
          startTime=time.time()
+         resp=registerImage(checkImage)
          resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          endTime=time.time()
          print(endTime-startTime)
@@ -66,33 +88,6 @@ def checkImage():
       except Exception as e:
          resp['Message']="There is some exception "+str(e)
          return Response(json.dumps(resp),mimetype="application/json",status=500)
-
-
-@app.route('/register',methods=["POST"])
-def registerImage():
-   resp= dict()
-   try:
-      image = request.files['image']
-      qr_code=qr.generateQrCode()
-      unique_id=randint(99999,1000000)
-      encodings=fc.getEncodings(image)
-      imageFilePath="/img/"+str(image.filename)
-      fileName=secure_filename(image.filename)
-      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
-      print(unique_id)
-      print("Image stored")
-      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
-      resp['image']=imageFilePath
-      resp['qr']=qr_code
-      resp['unique_id']=unique_id
-      resp['message']="None"
-      return Response(json.dumps(resp),mimetype="application/json",status=200)
-   except Exception as e:
-      print(e)
-      resp['message']=str(e)
-      return Response(json.dumps(resp),mimetype="application/json",status=500) 
-
-
 
 
 @app.route('/qrcode')
