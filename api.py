@@ -24,7 +24,7 @@ def saveImage(image,name):
       try:
          image.filename="img_"+str(name)+".png"
          fileName=secure_filename(image.filename)
-         imageFilePath="/data/uploads"+str(image.filename)
+         imageFilePath="/data/uploads/"+str(image.filename)
          image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
          return imageFilePath
       except Exception as e:
