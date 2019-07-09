@@ -61,7 +61,7 @@ def fetchDataOnId(id):
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="select unq_id,img_path,qr_code_path from fcr where unq_id="+id
+        sql="select unq_id,img_path,qr_code_path from fcr where unq_id="+str(id)
         cursor.execute(sql)
         rows=cursor.fetchall()
         for row in rows:

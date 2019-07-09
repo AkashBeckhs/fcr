@@ -21,11 +21,15 @@ def home():
 
 
 def saveImage(image,name):
-      image.fileName="img_"+name+".png"
-      fileName=secure_filename(image.filename)
-      imageFilePath="/data/uploads"+str(image.filename)
-      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
-      return imageFilePath
+      try:
+         image.fileName="img_"+str(name)+".png"
+         fileName=secure_filename(image.filename)
+         imageFilePath="/data/uploads"+str(image.filename)
+         image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
+         return imageFilePath
+      except Exception as e:
+         print(e)
+         return "FileNotSaved"
 
 def getUniqueId():
    return randint(99999,1000000)
