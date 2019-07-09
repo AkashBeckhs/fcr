@@ -12,7 +12,7 @@ import os
 
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER']='/data/uploads'
+app.config['UPLOAD_FOLDER']='data/uploads'
 
 @app.route('/upload')
 def home():
