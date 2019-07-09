@@ -73,10 +73,12 @@ def registerImage():
    try:
       image = request.files['image']
       qr_code=qr.generateQrCode()
-      unique_id=randint(99999,99999999)
+      unique_id=randint(99999,1000000)
       encodings=fc.getEncodings(image)
       imageFilePath="/img/"+str(image.filename)
-      image.save(secure_filename(uploadFolderPath+str(image.filename)))
+      saveimagePath=uploadFolderPath+str(image.filename)
+      print(saveimagePath)
+      image.save(secure_filename(saveimagePath))
       print(unique_id)
       print("Image stored")
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
