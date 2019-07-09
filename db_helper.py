@@ -16,10 +16,10 @@ def insert(img1):
     cursor=conn.cursor()
     try:
         sql="insert into vectors(vector) values(cube(array"+str(img1)+"))"
-        print(sql)
-        print("excuting sql......!")
+        #print(sql)
+        #print("excuting sql......!")
         cursor.execute(sql)
-        print("sql executed")
+        #print("sql executed")
         conn.commit()            
     except Exception as e:
         print("Exception while saving vector "+str(e))

@@ -54,26 +54,32 @@ def registerImage(encodings,imageFilePath,unique_id,status):
       resp['error']=str(e)
       return resp
 
-@app.route('/uploader', methods = ['POST'])
-def upload_file():
+@app.route('/uploader/<flag>', methods = ['POST'])
+def upload_file(flag):
    print("Inside upload method")
    resp=dict()
    if request.method == 'POST':
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
-         uid=getUniqueId()
-         imageFilePath=saveImage(checkImage,uid)
          if checkImage== None or verifyImage==None:
-          resp['Message']="Please provide valid images."  
-          return Response(json.dumps(resp),mimetype="application/json",status=403)
-         startTime=time.time()
-         result,encodings=fc.checkImage(checkImage,verifyImage)
-         resp=registerImage(encodings,imageFilePath,uid,result[0])
-         resp['Message']=str(result[0])
-         endTime=time.time()
-         print(endTime-startTime)
-         return Response(json.dumps(resp),mimetype="application/json",status=200)
+            resp['Message']="Please provide valid images."  
+            return Response(json.dumps(resp),mimetype="application/json",status=403)
+         assert flag == request.view_args['flag']
+         if flag == 'register':
+            uid=getUniqueId()
+            imageFilePath=saveImage(checkImage,uid)
+            startTime=time.time()
+            result,encodings=fc.checkImage(checkImage,verifyImage)
+            resp=registerImage(encodings,imageFilePath,uid,result[0])
+            resp['Message']=str(result[0])
+            endTime=time.time()
+            print(endTime-startTime)
+            return Response(json.dumps(resp),mimetype="application/json",status=200)
+         else:
+            result,encodings=fc.checkImage(checkImage,verifyImage)
+            resp['Message']=str(result[0]
+
       except Exception as e:
          print(e)
          resp['Message']="There is some exception "+str(e)
