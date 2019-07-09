@@ -8,6 +8,7 @@ import qrcode_qpi as qr
 import time
 from random import randint
 import db_helper as db
+import os
 
 
 app = Flask(__name__)
@@ -76,7 +77,8 @@ def registerImage():
       unique_id=randint(99999,1000000)
       encodings=fc.getEncodings(image)
       imageFilePath="/img/"+str(image.filename)
-      image.save(secure_filename(image.filename))
+      fileName=secure_filename(image.filename)
+      image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
       print(unique_id)
       print("Image stored")
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
