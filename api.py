@@ -23,10 +23,10 @@ def home():
 def registerImage(image):
    resp= dict()
    try:
-      qr_code=qr.generateQrCode()
+      qr_code="data/"+qr.generateQrCode()
       unique_id=randint(99999,1000000)
       encodings=fc.getEncodings(image)
-      imageFilePath="/img/"+str(image.filename)
+      imageFilePath="/data/uploads"+str(image.filename)
       fileName=secure_filename(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
       db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
@@ -49,13 +49,9 @@ def upload_file():
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
-         print(checkImage)
-         print(verifyImage)
          if checkImage== None or verifyImage==None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
-         checkImage.filename="checkImage.jpg"
-         verifyImage.filename="verifyImage.jpg"
          startTime=time.time()
          resp=registerImage(checkImage)
          resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
@@ -79,7 +75,6 @@ def checkImage():
    if request.method == 'POST':
       try:
          checkImage = request.files['check']
-         print(checkImage)
          if checkImage== None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
@@ -106,9 +101,6 @@ def getQrCodePath():
 def getQrCode(filepath):
    return send_from_directory('data', filepath)
    
-@app.route('/img/<path:filepath>')
-def getImageFiles(filepath):
-   return send_from_directory('data/uploads', filepath)
 
    
 if __name__ == '__main__':
