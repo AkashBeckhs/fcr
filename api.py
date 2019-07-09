@@ -39,7 +39,7 @@ def registerImage(encodings,imageFilePath,unique_id):
    resp= dict()
    try:
       qr_code="data/"+qr.generateQrCode()
-      db.insertIntoFcr(enc=None,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      db.insertIntoFcr(enc=encodings,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
       resp['qr']=qr_code
       resp['unique_id']=unique_id
