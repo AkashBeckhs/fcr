@@ -20,18 +20,21 @@ def home():
 	
 
 
-def saveImage(image):
+def saveImage(image,name):
+      image.fileName="img_"+name+".png"
       fileName=secure_filename(image.filename)
       imageFilePath="/data/uploads"+str(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
       return imageFilePath
 
+def getUniqueId():
+   return randint(99999,1000000)
 
-def registerImage(encodings,imageFilePath):
+
+def registerImage(encodings,imageFilePath,unique_id):
    resp= dict()
    try:
       qr_code="data/"+qr.generateQrCode()
-      unique_id=randint(99999,1000000)
       db.insertIntoFcr(enc=None,img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
       resp['qr']=qr_code
@@ -52,13 +55,14 @@ def upload_file():
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
-         imagePath=saveImage(checkImage)
+         uid=getUniqueId()
+         imageFilePath=saveImage(checkImage,uid)
          if checkImage== None or verifyImage==None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
          result,encodings=fc.checkImage(checkImage,verifyImage)
-         resp=registerImage(encodings,"no")
+         resp=registerImage(encodings,imageFilePath,uid)
          resp['Message']=str(result[0])
          endTime=time.time()
          print(endTime-startTime)
