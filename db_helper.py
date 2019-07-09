@@ -55,6 +55,26 @@ def insertIntoFcr(enc,img_path,qr_code,unique_id):
     finally:
         conn.commit()
         conn.close()
+
+def fetchDataOnId(id):
+    resp=dict()
+    conn=getDbObject()
+    cursor=conn.cursor()
+    try:
+        sql="select unq_id,img_path,qr_code_path from fcr where unq_id="+id
+        cursor.execute(sql)
+        rows=cursor.fetchall()
+        for row in rows:
+            resp['Unique_Id']=row[0]
+            resp['image']=row[1]
+            resp['qr_code']=row[2]
+        return resp
+    except Exception as e:
+        print(e)
+        resp['error']="There was some error"
+    finally:
+        conn.close()
+        
     
 
    

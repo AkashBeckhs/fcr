@@ -55,8 +55,9 @@ def upload_file():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
-         resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
-         #resp=registerImage(checkImage,encodings)
+         result,encodings=fc.checkImage(checkImage,verifyImage)
+         resp=registerImage(checkImage,encodings)
+         resp['Message']=str(result[0])
          endTime=time.time()
          print(endTime-startTime)
          checkImage.close()
@@ -68,7 +69,17 @@ def upload_file():
          return Response(json.dumps(resp),mimetype="application/json",status=500)
 
 
-
+@app.route("/fetch/<uid>",methods=['GET'])
+def fetchData():
+    uid = request.view_args['uid']
+    if uid is not None:
+       resp=db.fetchDataOnId(uid)
+       return Response(json.dumps(resp),mimetype="application/json",status=200)
+    else:
+      resp=dict()
+      resp['Message']='No user found'
+      return Response(json.dumps(resp),mimetype="application/json",status=200)
+      
 @app.route('/verify', methods = ['GET'])
 def verifyImagePage():
    return render_template('/verify.html')
