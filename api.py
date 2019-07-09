@@ -22,7 +22,7 @@ def home():
 
 def saveImage(image,name):
       try:
-         image.fileName="img_"+str(name)+".png"
+         image.filename="img_"+str(name)+".png"
          fileName=secure_filename(image.filename)
          imageFilePath="/data/uploads"+str(image.filename)
          image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
