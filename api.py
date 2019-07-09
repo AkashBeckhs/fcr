@@ -30,7 +30,7 @@ def registerImage(image):
       fileName=secure_filename(image.filename)
       imageFilePath="/data/uploads"+str(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
-      db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
+      #db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id)
       resp['image']=imageFilePath
       resp['qr']=qr_code
       resp['unique_id']=unique_id
@@ -54,7 +54,7 @@ def upload_file():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
-         resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
+         #resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
          resp=registerImage(checkImage)
          endTime=time.time()
          print(endTime-startTime)
