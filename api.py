@@ -58,7 +58,7 @@ def upload_file():
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
          result,encodings=fc.checkImage(checkImage,verifyImage)
-         resp=registerImage(encodings,imagePath)
+         resp=registerImage(encodings,"no")
          resp['Message']=str(result[0])
          imagePath=saveImage(tempImage)
          endTime=time.time()
