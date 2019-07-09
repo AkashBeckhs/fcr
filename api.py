@@ -62,11 +62,8 @@ def upload_file(flag):
       try:
          checkImage = request.files['check']
          verifyImage = request.files['verify']
-         if checkImage== None or verifyImage==None:
-            resp['Message']="Please provide valid images."  
-            return Response(json.dumps(resp),mimetype="application/json",status=403)
          assert flag == request.view_args['flag']
-         if flag == 'register':
+         if flag =="register":
             uid=getUniqueId()
             imageFilePath=saveImage(checkImage,uid)
             startTime=time.time()
@@ -78,8 +75,8 @@ def upload_file(flag):
             return Response(json.dumps(resp),mimetype="application/json",status=200)
          else:
             result,encodings=fc.checkImage(checkImage,verifyImage)
-            resp['Message']=str(result[0]
-
+            resp['Message']=str(result[0])
+            return Response(json.dumps(resp),mimetype="application/json",status=200)
       except Exception as e:
          print(e)
          resp['Message']="There is some exception "+str(e)
