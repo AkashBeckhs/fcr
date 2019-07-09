@@ -20,14 +20,14 @@ def home():
 	
 
 
-def registerImage(image):
+def registerImage(image,encodings):
    resp= dict()
    try:
       qr_code="data/"+qr.generateQrCode()
       unique_id=randint(99999,1000000)
       image.filename="img_"+str(unique_id)+".png"
       tempImage=image
-      #encodings=fc.getEncodings(tempImage)
+      encodings=fc.getEncodings(tempImage)
       fileName=secure_filename(image.filename)
       imageFilePath="/data/uploads"+str(image.filename)
       image.save(os.path.join(app.config['UPLOAD_FOLDER'], fileName))
@@ -55,8 +55,8 @@ def upload_file():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          startTime=time.time()
-         #resp['Message']=str(fc.checkImage(checkImage,verifyImage)[0])
-         resp=registerImage(checkImage)
+         resp['Message'],encodings=str(fc.checkImage(checkImage,verifyImage)[0])
+         resp=registerImage(checkImage,encodings)
          endTime=time.time()
          print(endTime-startTime)
          checkImage.close()
