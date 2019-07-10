@@ -126,7 +126,7 @@ def checkImage():
 
 @app.route('/qrcode/<uid>',methods=['GET'])
 def getQrCodePath(uid):
-   assert uid == request.view_args['uid']
+   # assert uid == request.view_args['uid']
    resp= dict()
    try:
       fileName="qr_code_"+str(uid)
@@ -149,3 +149,4 @@ def getQrCode(filepath):
    
 if __name__ == '__main__':
    app.run(host='0.0.0.0',port=8080,debug = True)
+

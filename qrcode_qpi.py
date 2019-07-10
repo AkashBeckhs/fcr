@@ -16,7 +16,9 @@ def generateQrCode(status,id):
     data['time']=timestampStr
     data['unique_id']=id
     data['status']=str(status)
-    qr_big.add_data(str(data))
+    d=str(data)
+    print(d)
+    qr_big.add_data(d)
     qr_big.make()
     img_qr_big = qr_big.make_image().convert('RGB')
     pos = ((img_qr_big.size[0] - face.size[0]) // 2, (img_qr_big.size[1] - face.size[1]) // 2)
