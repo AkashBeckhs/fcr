@@ -24,9 +24,6 @@ def generateQrCode(status,id):
     #fileName=timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)").replace('-','_').replace(' ','_').replace('.','_').replace(':',"_").replace('(','').replace(')','')
     fileName="qr_code_"+str(id)
     fileName='%s.png' %fileName
-    if os.path.exists("data/"+fileName):
-        os.remove("data/%s" %fileName)
-        print("file deleted")
     img_qr_big.save('data/%s' %fileName)
     img_qr_big.close()
     return fileName
