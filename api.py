@@ -129,7 +129,7 @@ def getQrCodePath(uid):
    assert uid == request.view_args['uid']
    resp= dict()
    try:
-      fileName="qr_code_"+str(id)
+      fileName="qr_code_"+str(uid)
       fileName='%s.png' %fileName
       if os.path.exists("data/"+fileName):
         os.remove("data/%s" %fileName)
