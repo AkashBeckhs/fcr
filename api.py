@@ -135,8 +135,8 @@ def getQrCodePath(uid):
         os.remove("data/%s" %fileName)
         print("file deleted")
       res=db.fetchDataOnId(uid)
-      #filePath=qr.generateQrCode(res['status'],res['Unique_Id'])
-      filePath="/data/qr_code_220855.png"
+      filePath=qr.generateQrCode(res['status'],res['Unique_Id'])
+      #filePath="/data/qr_code_220855.png"
       return send_from_directory('data', filePath)
    except Exception as e:
       print(e)
