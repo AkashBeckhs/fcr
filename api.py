@@ -124,19 +124,16 @@ def checkImage():
          return Response(json.dumps(resp),mimetype="application/json",status=500)
 
 
-@app.route('/qrcode/<uid>')
+@app.route('/qrcode/<uid>',methods=['GET'])
 def getQrCodePath(uid):
    assert uid == request.view_args['uid']
    resp= dict()
    try:
       fileName="qr_code_"+str(uid)
       fileName='%s.png' %fileName
-      if os.path.exists("data/"+fileName):
-        os.remove("data/%s" %fileName)
-        print("file deleted")
       res=db.fetchDataOnId(uid)
       filePath=qr.generateQrCode(res['status'],res['Unique_Id'])
-      #filePath="/data/qr_code_220855.png"
+      print(filePath)
       return send_from_directory('data', filePath)
    except Exception as e:
       print(e)
