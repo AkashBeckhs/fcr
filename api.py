@@ -124,12 +124,14 @@ def checkImage():
          return Response(json.dumps(resp),mimetype="application/json",status=500)
 
 
-@app.route('/qrcode')
-def getQrCodePath():
+@app.route('/qrcode/<uid>')
+def getQrCodePath(uid):
+   assert uid == request.view_args['uid']
    resp= dict()
    try:
-      resp['Message']="data/%s" %(qr.generateQrCode())
-      return Response(json.dumps(resp),mimetype="application/json",status=200)
+      res=db.fetchDataOnId(uid)
+      filePath=qr.generateQrCode(res['status'],res['Unique_id'])
+      return send_from_directory('data', filePath)
    except Exception as e:
       print(e)
       resp['Message']="There was some error"
