@@ -129,11 +129,14 @@ def getQrCodePath(uid):
    assert uid == request.view_args['uid']
    resp= dict()
    try:
+      fileName="qr_code_"+str(id)
+      fileName='%s.png' %fileName
       if os.path.exists("data/"+fileName):
         os.remove("data/%s" %fileName)
         print("file deleted")
       res=db.fetchDataOnId(uid)
       #filePath=qr.generateQrCode(res['status'],res['Unique_Id'])
+      filePath="/data/qr_code_220855.png"
       return send_from_directory('data', filePath)
    except Exception as e:
       print(e)
