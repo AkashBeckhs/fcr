@@ -44,7 +44,7 @@ def registerImage(encodings,imageFilePath,unique_id,status):
       if status ==True:
          id=str(unique_id)
          st=str(status)
-         qr_code="/data/"+qr.generateQrCode(st,id)
+         qr_code="/qrcode/"+qr.generateQrCode(st,id)
          db.insertIntoFcr(enc=encodings.tolist(),img_path=imageFilePath,qr_code=qr_code,unique_id=unique_id,status=status)
          resp['unique_id']=unique_id
          resp['error']="None"
