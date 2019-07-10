@@ -129,8 +129,6 @@ def getQrCodePath(uid):
    # assert uid == request.view_args['uid']
    resp= dict()
    try:
-      fileName="qr_code_"+str(uid)
-      fileName='%s.png' %fileName
       res=db.fetchDataOnId(uid)
       filePath=qr.generateQrCode(res['status'],res['Unique_Id'])
       print(filePath)
