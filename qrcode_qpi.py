@@ -21,8 +21,8 @@ def generateQrCode(status,id):
     img_qr_big = qr_big.make_image().convert('RGB')
     pos = ((img_qr_big.size[0] - face.size[0]) // 2, (img_qr_big.size[1] - face.size[1]) // 2)
     img_qr_big.paste(face, pos)
-    #fileName=timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)").replace('-','_').replace(' ','_').replace('.','_').replace(':',"_").replace('(','').replace(')','')
-    fileName="qr_code_"+str(id)
+    fileName=timestamp.strftime("%d-%b-%Y (%H:%M:%S.%f)").replace('-','_').replace(' ','_').replace('.','_').replace(':',"_").replace('(','').replace(')','')
+    #fileName="qr_code_"+str(id)
     fileName='%s.png' %fileName
     img_qr_big.save('data/%s' %fileName)
     img_qr_big.close()
