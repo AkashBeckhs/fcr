@@ -5,11 +5,12 @@ import os
 
 
 face = Image.open('logo.png').crop((0,0,56,56))
-qr_big = qrcode.QRCode(
-    error_correction=qrcode.constants.ERROR_CORRECT_H
-)
+
 
 def generateQrCode(status,id):
+    qr_big = qrcode.QRCode(
+    error_correction=qrcode.constants.ERROR_CORRECT_H
+    )
     data=dict()
     timestamp=datetime.datetime.now()
     timestampStr = timestamp.strftime(" %d-%b-%Y (%H:%M:%S.%f)")
