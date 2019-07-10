@@ -130,7 +130,7 @@ def getQrCodePath(uid):
    resp= dict()
    try:
       res=db.fetchDataOnId(uid)
-      filePath=qr.generateQrCode(res['status'],res['Unique_id'])
+      filePath=qr.generateQrCode(res['status'],res['Unique_Id'])
       return send_from_directory('data', filePath)
    except Exception as e:
       print(e)
