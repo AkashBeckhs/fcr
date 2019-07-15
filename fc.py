@@ -20,6 +20,7 @@ def verifyImage(img):
     enc=getEncodings(img)
     enc=enc.tolist()
     rows=db.checkImage(enc)
+    print(rows)
     return rows
     
 
