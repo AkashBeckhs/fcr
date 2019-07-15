@@ -113,7 +113,7 @@ def checkImage():
    resp=dict()
    if request.method == 'POST':
       try:
-         checkImage = request.files['check']
+         checkImage = request.files['image']
          if checkImage== None:
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
