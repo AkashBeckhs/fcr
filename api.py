@@ -118,6 +118,8 @@ def checkImage():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          rows=fc.verifyImage(checkImage)
+         print(rows[0])
+         print(rows[1])
          return Response(json.dumps(rows),mimetype="application/json",status=200)
       except Exception as e:
          resp['Message']="There is some exception "+str(e)
