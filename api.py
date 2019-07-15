@@ -109,6 +109,7 @@ def verifyImagePage():
 
 @app.route('/verify', methods = ['POST'])
 def checkImage():
+   dataDict=dict()
    print("Inside upload method")
    resp=dict()
    if request.method == 'POST':
@@ -118,9 +119,10 @@ def checkImage():
           resp['Message']="Please provide valid images."  
           return Response(json.dumps(resp),mimetype="application/json",status=403)
          rows=fc.verifyImage(checkImage)
-         print(rows[0])
-         print(rows[1])
-         return Response(json.dumps(rows),mimetype="application/json",status=200)
+         for row in rows:
+            dataDict['id']=row[0]
+            dataDict['unique_id']=row[1]
+         return Response(json.dumps(str(dataDict)),mimetype="application/json",status=200)
       except Exception as e:
          resp['Message']="There is some exception "+str(e)
          return Response(json.dumps(resp),mimetype="application/json",status=500)
