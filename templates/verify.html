@@ -115,7 +115,8 @@
          data: new FormData(this) ,
          success: function(data) {
                $("#result").empty()
-               $("#result").append("<h2>"+data.message+"</h2>")
+               $("#result").append("<h2>"+data.id+"</h2>")
+               $("#result").append("<h2>"+data.unique_id+"</h2>")
                $("#loader").hide();
          },
          error:function(data){
