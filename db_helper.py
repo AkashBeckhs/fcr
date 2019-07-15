@@ -31,7 +31,7 @@ def checkImage(img):
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="SELECT id from fcr where (cube(array"+str(img)+") <-> vector)<=0.52 LIMIT 1"
+        sql="SELECT id,unq_id from fcr where (cube(array"+str(img)+") <-> vector)<=0.52 LIMIT 1"
         cursor.execute(sql)
         rows=cursor.fetchall()
         return rows
