@@ -18,7 +18,8 @@ def generateQrCode(status,id):
     data['time']=timestampStr
     data['unique_id']=id
     data['status']=str(status).strip()
-    d=str(data)
+    #d=str(data)
+    d="Secret Message A"
     print("before encryption  :-"+d)
     cipher=AESCipher(key)
     d=str(cipher.encrypt(d))
