@@ -22,6 +22,7 @@ def generateQrCode(status,id):
     print("before encryption  :-"+d)
     cipher=AESCipher(key)
     d=str(cipher.encrypt(d))
+    d=d.decode('utf-8')
     print("after ecncryption   :-"+ d)
     print(str(cipher.decrypt(d)))
     qr_big.add_data(d)
