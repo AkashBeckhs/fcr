@@ -6,7 +6,7 @@ from enc import AESCipher
 
 face = Image.open('logo.png').crop((0,0,56,56))
 
-key='aiypwzqphesoyamaaiypwzqphesoyama'
+key='mysecretpassword'
 
 def generateQrCode(status,id):
     qr_big = qrcode.QRCode(
