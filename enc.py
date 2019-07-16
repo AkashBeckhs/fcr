@@ -26,8 +26,3 @@ class AESCipher:
         cipher = AES.new(self.key, AES.MODE_CBC, iv )
         return unpad(cipher.decrypt( enc[16:] ))
 
-cipher = AESCipher('mysecretpassword')
-encrypted = cipher.encrypt('Secret Message A')
-decrypted = cipher.decrypt(encrypted)
-print(encrypted)
-print(decrypted)
