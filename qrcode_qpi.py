@@ -17,7 +17,7 @@ def generateQrCode(status,id):
     timestampStr = timestamp.strftime(" %d-%b-%Y (%H:%M:%S.%f)")
     data['time']=timestampStr
     data['unique_id']=id
-    data['status']=str(status)
+    data['status']=str(status).strip()
     d=str(data)
     print("before encryption  :-"+d)
     cipher=AESCipher(key)
