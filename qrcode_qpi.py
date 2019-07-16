@@ -2,10 +2,11 @@ import qrcode
 from PIL import Image
 import datetime
 import os
-
+from enc import AESCipher 
 
 face = Image.open('logo.png').crop((0,0,56,56))
 
+key='aiypwzqphesoyama'
 
 def generateQrCode(status,id):
     qr_big = qrcode.QRCode(
@@ -18,6 +19,8 @@ def generateQrCode(status,id):
     data['unique_id']=id
     data['status']=str(status)
     d=str(data)
+    cipher=AESCipher(key)
+    d=cipher.encrypt(d)
     print(d)
     qr_big.add_data(d)
     qr_big.make()
@@ -34,8 +37,7 @@ def generateQrCode(status,id):
     return fileName
 
 
-if(__name__=="__main__"):
-    print(generateQrCode("true",246312))
+
 
 
    
