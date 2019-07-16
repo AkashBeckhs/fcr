@@ -23,6 +23,7 @@ def generateQrCode(status,id):
     cipher=AESCipher(key)
     d=str(cipher.encrypt(d))
     print("after ecncryption   :-"+ d)
+    print(str(cipher.decrypt(d)))
     qr_big.add_data(d)
     qr_big.make()
     img_qr_big = qr_big.make_image().convert('RGB')
