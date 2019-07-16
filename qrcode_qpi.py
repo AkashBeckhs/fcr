@@ -19,9 +19,10 @@ def generateQrCode(status,id):
     data['unique_id']=id
     data['status']=str(status)
     d=str(data)
+    print("before encryption  :-"+d)
     cipher=AESCipher(key)
-    d=cipher.encrypt(d)
-    print(d)
+    d=str(cipher.encrypt(d))
+    print("after ecncryption   :-"+ d)
     qr_big.add_data(d)
     qr_big.make()
     img_qr_big = qr_big.make_image().convert('RGB')
