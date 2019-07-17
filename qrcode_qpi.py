@@ -6,10 +6,10 @@ from enc import AESCipher
 
 face = Image.open('logo.png').crop((0,0,56,56))
 
-key='hesoyamhaiypwzqp'
+
 
 def generateQrCode(status,id):
-    global key
+    key='hesoyamhaiypwzqp'
     qr_big = qrcode.QRCode(
     error_correction=qrcode.constants.ERROR_CORRECT_H
     )
@@ -23,8 +23,8 @@ def generateQrCode(status,id):
     print("before encryption  :-"+d)
     cipher=AESCipher(key)
     encrypted = cipher.encrypt(d)
-    decrypted = cipher.decrypt(encrypted)
     print(encrypted)
+    decrypted = cipher.decrypt(encrypted)
     print(decrypted)
     qr_big.add_data(encrypted)
     qr_big.make()
