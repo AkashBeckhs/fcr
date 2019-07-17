@@ -12,23 +12,18 @@ unpad = lambda s : s[0:-s[-1]]
 class AESCipher:
 
     def __init__( self, key ):
-        self.key = hashlib.sha256(key.encode('utf-8')).digest()
+        self.key = key
 
     def encrypt( self, raw ):
         raw = pad(raw)
-        iv = Random.new().read( AES.block_size )
-        cipher = AES.new( self.key, AES.MODE_CBC, iv )
-        return base64.b64encode( iv + cipher.encrypt( raw ) )
+        #iv = Random.new().read( AES.block_size )
+        cipher = AES.new( self.key, AES.MODE_ECB)
+        return base64.b64encode(cipher.encrypt( raw )).decode('utf-8')
 
     def decrypt( self, enc ):
         enc = base64.b64decode(enc)
-        iv = enc[:16]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv )
-        return unpad(cipher.decrypt( enc[16:] ))
+        #v = enc[:16]
+        cipher = AES.new(self.key, AES.MODE_ECB )
+        return unpad(cipher.decrypt( enc)).decode('utf-8')
 
 
-cipher = AESCipher('hesoyamhaiypwzqp')
-encrypted = cipher.encrypt("{'time': ' 16-Jul-2019 (13:37:20.193544)', 'unique_id': 518181, 'status': 'true'}")
-decrypted = cipher.decrypt(encrypted)
-print(encrypted)
-print(decrypted)
