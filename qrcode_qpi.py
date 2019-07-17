@@ -6,9 +6,10 @@ from enc import AESCipher
 
 face = Image.open('logo.png').crop((0,0,56,56))
 
-key='mysecretpassword'
+key='hesoyamhaiypwzqp'
 
 def generateQrCode(status,id):
+    global key
     qr_big = qrcode.QRCode(
     error_correction=qrcode.constants.ERROR_CORRECT_H
     )
@@ -18,14 +19,14 @@ def generateQrCode(status,id):
     data['time']=timestampStr
     data['unique_id']=id
     data['status']=str(status).strip()
-    #d=str(data)
-    d="Secret Message A"
+    d=str(data)
     print("before encryption  :-"+d)
     cipher=AESCipher(key)
-    d=str(cipher.encrypt(d))
-    print("after ecncryption   :-"+ d)
-    print(str(cipher.decrypt(d)))
-    qr_big.add_data(d)
+    encrypted = cipher.encrypt(d)
+    decrypted = cipher.decrypt(encrypted)
+    print(encrypted)
+    print(decrypted)
+    qr_big.add_data(encrypted)
     qr_big.make()
     img_qr_big = qr_big.make_image().convert('RGB')
     pos = ((img_qr_big.size[0] - face.size[0]) // 2, (img_qr_big.size[1] - face.size[1]) // 2)

@@ -27,7 +27,7 @@ class AESCipher:
         return unpad(cipher.decrypt( enc[16:] ))
 
 
-cipher = AESCipher('mysecretpassword')
+cipher = AESCipher('hesoyamhaiypwzqp')
 encrypted = cipher.encrypt("{'time': ' 16-Jul-2019 (13:37:20.193544)', 'unique_id': 518181, 'status': 'true'}")
 decrypted = cipher.decrypt(encrypted)
 print(encrypted)
