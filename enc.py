@@ -1,9 +1,8 @@
-
-
 import base64
 import hashlib
 from Crypto import Random
 from Crypto.Cipher import AES
+
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -19,7 +18,7 @@ class AESCipher:
         raw = pad(raw)
         iv = Random.new().read( AES.block_size )
         cipher = AES.new( self.key, AES.MODE_CBC, iv )
-        return base64.b64encode( iv + cipher.encrypt( raw.encode('utf8') ) )
+        return base64.b64encode( iv + cipher.encrypt( raw ) )
 
     def decrypt( self, enc ):
         enc = base64.b64decode(enc)
@@ -27,3 +26,9 @@ class AESCipher:
         cipher = AES.new(self.key, AES.MODE_CBC, iv )
         return unpad(cipher.decrypt( enc[16:] ))
 
+
+cipher = AESCipher('mysecretpassword')
+encrypted = cipher.encrypt("{'time': ' 16-Jul-2019 (13:37:20.193544)', 'unique_id': 518181, 'status': 'true'}")
+decrypted = cipher.decrypt(encrypted)
+print(encrypted)
+print(decrypted)
