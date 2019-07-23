@@ -98,7 +98,8 @@ def checkSixDigitVerificationCode(code):
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="SELECT uid,code FROM verification_codes WHERE time > now() - interval '30 second' limit 1"
+        sql="SELECT uid,code FROM verification_codes WHERE code='"+code+"' and time > now() - interval '30 second' limit 1"
+        print(sql)
         cursor.execute(sql)
         rows=cursor.fetchall()
         for row in rows:
