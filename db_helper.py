@@ -84,6 +84,7 @@ def saveSixDigitVerificationCode(uid,code):
         sql="insert into verification_codes(uid,code) values("+uid+",'"+str(code)+"')"
         print(sql)
         cursor.execute(sql)
+        conn.commit()
         resp["uid"]=uid
         resp["code"]=code
         return resp
@@ -91,6 +92,7 @@ def saveSixDigitVerificationCode(uid,code):
         print(e)
         return resp
     finally:
+       
         conn.close()
 
 def checkSixDigitVerificationCode(code):
