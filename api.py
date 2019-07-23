@@ -20,6 +20,9 @@ app.config['UPLOAD_FOLDER']='data/uploads/'
 def home():
    return render_template('/upload.html')
 
+@app.route('/verification')
+def codeVerification():
+   return render_template('/wines.html')
 
 @app.route('/unlock')
 def unlock():
@@ -143,6 +146,20 @@ def getQrCodePath(uid):
       print(e)
       resp['Message']="There was some error"
       return Response(json.dumps(resp),mimetype="application/json",status=500)
+
+
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('static/js', path)
+
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('static/css', path)
+
+@app.route('/img/<path:path>')
+def send_img(path):
+    return send_from_directory('static/img', path)
 
 
 @app.route('/data/<path:filepath>')
