@@ -310,12 +310,12 @@
 	<script>
 	  $("#submit-btn").click(function(){
 		$("#result").empty()
-		var url="http://35.194.56.65:8080/verification/" 
+		var url="http://35.194.56.65:8080/verificationcode/" 
 		var code=$("#verificationCodeInput").val()
 		url=url+code;
 		alert(url)
 		$.ajax({ 
-         type: 'post', 
+         type: 'GET', 
          url:url, 
          success: function(data) {
                $("#result").empty()
