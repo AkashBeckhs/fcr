@@ -13,7 +13,7 @@ def generateVerificationCode(uid):
     assert uid == request.view_args['uid']
     code=getSixDigitCode()
     resp=db.saveSixDigitVerificationCode(uid,code)
-    if(resp is not None):
+    if bool(resp):
         return Response(json.dumps(resp),mimetype="application/json",status=200)
     else:
         resp['Error']='There is some error while generating 6 digit code'

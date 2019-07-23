@@ -76,15 +76,20 @@ def fetchDataOnId(id):
         conn.close()
 
 def saveSixDigitVerificationCode(uid,code):
+    
+    resp=dict()
     conn=getDbObject()
     cursor=conn.cursor()
     try:
-        sql="insert into verification_codes (uid,code) values("+uid+",'"+code+"')"
+        sql="insert into verification_codes(uid,code) values("+uid+",'"+code+"')"
+        print(sql)
         cursor.execute(sql)
-        return {"uid":uid,"code":code}
+        resp["uid"]=uid
+        resp["code"]=code
+        return resp
     except Exception as e:
         print(e)
-        return None
+        return resp
     finally:
         conn.close()
 
