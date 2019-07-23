@@ -74,6 +74,38 @@ def fetchDataOnId(id):
         resp['error']="There was some error"
     finally:
         conn.close()
+
+def saveSixDigitVerificationCode(uid,code):
+    conn=getDbObject()
+    cursor=conn.cursor()
+    try:
+        sql="insert into verification_codes (uid,code) values("+uid+",'"+code+"')"
+        cursor.execute(sql)
+        return {"uid":uid,"code":code}
+    except Exception as e:
+        print(e)
+        return None
+    finally:
+        conn.close()
+
+def checkSixDigitVerificationCode(code):
+    resp=dict()
+    conn=getDbObject()
+    cursor=conn.cursor()
+    try:
+        sql="SELECT uid,code FROM verification_codes WHERE time > now() - interval '30 second' limit 1"
+        cursor.execute(sql)
+        rows=cursor.fetchall()
+        for row in rows:
+            resp['Unique_Id']=row[0]
+            resp['Code']=row[1]
+        return resp
+    except Exception as e:
+        print(e)
+        return resp
+    finally:
+        conn.close()
+
         
     
 

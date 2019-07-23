@@ -1,6 +1,6 @@
 import fc
 import json
-from flask import Flask, render_template, request,send_from_directory
+from flask import Flask, render_template, request,send_from_directory,Blueprint
 from werkzeug.utils import secure_filename
 from flask import jsonify
 from flask import Response
@@ -9,9 +9,11 @@ import time
 from random import randint
 import db_helper as db
 import os
+from UserApi import user_api
 
 
 app = Flask(__name__)
+app.register_blueprint(user_api)
 app.config['UPLOAD_FOLDER']='data/uploads/'
 
 @app.route('/upload')
