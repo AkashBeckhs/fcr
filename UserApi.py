@@ -19,7 +19,7 @@ def generateVerificationCode(uid):
         resp['Error']='There is some error while generating 6 digit code'
         return Response(json.dumps(resp),mimetype="application/json",status=500)
 
-@user_api.route("/verificationcode/<code>", methods = ['POST'])
+@user_api.route("/verificationcode/<code>", methods = ['GET'])
 def checkVerificationCode(code):
     assert code == request.view_args['code']
     resp=db.checkSixDigitVerificationCode(code)
