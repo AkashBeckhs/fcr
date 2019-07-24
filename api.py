@@ -24,6 +24,10 @@ def home():
 def codeVerification():
    return render_template('/wines.html')
 
+@app.route('/checkout')
+def checkOutPage():
+   return render_template('/checkout.html')
+
 @app.route('/unlock')
 def unlock():
    return render_template('/check.html')
