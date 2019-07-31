@@ -27,6 +27,45 @@
 	<script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 	<link href="http://fonts.googleapis.com/css?family=Cardo:400,400italic" rel="stylesheet" type="text/css">
 	<link href="css/font-cardo.css" rel="stylesheet" type="text/css">
+	<style>
+		.modal-content,
+		.modal-body,
+		.modal-header,
+		.modal-footer,
+		.result>.result-text {
+			background-color: black;
+			color: white;
+			border-color: black;
+		}
+
+		.modal-title {
+			color: white
+		}
+
+		#submit-btn {
+			margin-right: 35%;
+			color: white;
+		}
+
+		#verificationCodeInput {
+
+			color: black;
+			margin-top: 25px;
+			margin-bottom: 25px;
+		}
+		.modal-dialog {
+			margin-top: 12%;
+		}
+
+		.wh-clr {
+			color: white;
+		}
+
+		.m-body>p {
+			font-size: 20px;
+		}
+		 
+	</style>
 </head>
 
 <body>
@@ -91,49 +130,49 @@
 				<div class="row">
 					<div class="col-md-2 col-sm-4">
 						<div class="team-1-member">
-							<img alt="Team Member" class="background-image" src="img/wine_1.png ">
-							<h5>Chardonnay</h5>
-							<button type="button" class="btn modal-btn" >Buy</button><br>
-
-						</div>
-					</div>
-					<div class="col-md-2 col-sm-4">
-						<div class="team-1-member">
-							<img alt="Team Member" class="background-image" src="img/wine_2.png ">
-							<h5>Merlot</h5>
+							<img alt="Team Member" class="background-image" src="img/wine_1.jpg ">
+							<h5>JW Black Label</h5>
 							<button type="button" class="btn modal-btn">Buy</button><br>
 
 						</div>
 					</div>
 					<div class="col-md-2 col-sm-4">
 						<div class="team-1-member">
-							<img alt="Team Member" class="background-image" src="img/wine_3.png ">
-							<h5>Pinot Noir</h5>
-							<button type="button" class="btn modal-btn" >Buy</button><br>
-
-						</div>
-					</div>
-					<div class="col-md-2 col-sm-4">
-						<div class="team-1-member">
-							<img alt="Team Member" class="background-image" src="img/wine_4.png ">
-							<h5>Chenin Blanc</h5>
-							<button type="button" class="btn modal-btn" >Buy</button><br>
-
-						</div>
-					</div>
-					<div class="col-md-2 col-sm-4">
-						<div class="team-1-member">
-							<img alt="Team Member" class="background-image" src="img/wine_5.png ">
-							<h5> Nebbiolo</h5>
+							<img alt="Team Member" class="background-image" src="img/wine_2.jpg">
+							<h5>JW Blue Label</h5>
 							<button type="button" class="btn modal-btn">Buy</button><br>
 
 						</div>
 					</div>
 					<div class="col-md-2 col-sm-4">
 						<div class="team-1-member">
-							<img alt="Team Member" class="background-image" src="img/wine_6.png ">
-							<h5>Cabernet Franc</h5>
-							<button type="button" class="btn modal-btn" >Buy</button><br>
+							<img alt="Team Member" class="background-image" src="img/wine_3.jpg ">
+							<h5>Laphroaig 10 YR</h5>
+							<button type="button" class="btn modal-btn">Buy</button><br>
+
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-4">
+						<div class="team-1-member">
+							<img alt="Team Member" class="background-image" src="img/wine_4.jpg ">
+							<h5>Macallan</h5>
+							<button type="button" class="btn modal-btn">Buy</button><br>
+
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-4">
+						<div class="team-1-member">
+							<img alt="Team Member" class="background-image" src="img/wine_5.jpg">
+							<h5>Shieldaig</h5>
+							<button type="button" class="btn modal-btn">Buy</button><br>
+
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-4">
+						<div class="team-1-member">
+							<img alt="Team Member" class="background-image" src="img/wine_6.jpg">
+							<h5>Glenfiddich</h5>
+							<button type="button" class="btn modal-btn">Buy</button><br>
 
 						</div>
 					</div>
@@ -246,8 +285,6 @@
 								<font color="ffffff">Themezy
 							</a></font>.</span>
 
-
-
 					</div>
 
 
@@ -277,24 +314,30 @@
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title">Age Verification</h4>
+					<button type="button" class="close wh-clr" data-dismiss="modal">X</button>
+
 				</div>
 				<div class="modal-body" style="padding-bottom: 50px;padding-top: 50px">
 					<div class="col-md-12 col-sm-12 col-lg-12">
-						<p class="col-md-4 col-sm-4 col-lg-4">Verification Code</p>
-						<input id="verificationCodeInput" class="col-md-8 col-sm-8 col-lg-8" type="text" placeholder="6 Digit Verification Code">
+						<div class="col-md-12 col-sm-12 col-lg-12 text-center m-body">
+							<p>Welcome! <br>You must be 21 or above to proceed</p>
+							<p>Enter your security code </p>
+						</div>
+						<br><br>
+						<input id="verificationCodeInput" class="col-lg-6 col-lg-offset-3" type="text"
+							placeholder="6 Digit Verification Code">
+					</div>
+					<div id="result" class='result'>
+
 					</div>
 				</div>
-				<div id="result">
-				
-				</div>
+
 				<div class="modal-footer">
-					<button type="button" id="submit-btn" class="btn btn-default" >Submit</button>
+					<button type="button" id="submit-btn" class="btn btn-default">Submit</button>
 				</div>
 			</div>
 		</div>
@@ -302,38 +345,38 @@
 	<script>
 
 
-      $(".modal-btn").click(function(){
-		  $("#result").empty()
-		  $('#verificationCodeInput').val('');
-		  $("#myModal").modal('toggle');
-	  })
+		$(".modal-btn").click(function () {
+			$("#result").empty()
+			$('#verificationCodeInput').val('');
+			$("#myModal").modal('toggle');
+		})
 
 
-	  $("#submit-btn").click(function(){
-		var redirectUrl="http://35.194.56.65:8080/checkout"
-		var url="http://35.194.56.65:8080/verificationcode/" 
-		var code=$("#verificationCodeInput").val()
-		url=url+code;
-		$.ajax({ 
-         type: 'GET', 
-         url:url, 
-         success: function(data) {
-               $("#result").empty()
-			   if(data.Status=='valid'){
-				 window.location.href=redirectUrl   
-			   }
-			   else{
-				$("#result").append("<h3 class='text-center'>Invalid Verification code</h3>")
-			   }
-               
-         },
-         error:function(){
-               $("#result").empty()
-               $("#result").append("<h2>There was some error, Please try again!!</h2>")
-         }
-         });
-	  })
-	</script> 
+		$("#submit-btn").click(function () {
+			var redirectUrl = "http://35.194.56.65:8080/checkout"
+			var url = "http://35.194.56.65:8080/verificationcode/"
+			var code = $("#verificationCodeInput").val()
+			url = url + code;
+			$.ajax({
+				type: 'GET',
+				url: url,
+				success: function (data) {
+					$("#result").empty()
+					if (data.Status == 'valid') {
+						window.location.href = redirectUrl
+					}
+					else {
+						$("#result").append("<h3 class='text-center result-text'>Invalid Verification code</h3>")
+					}
+
+				},
+				error: function () {
+					$("#result").empty()
+					$("#result").append("<h2 class='result-text text-center'>There was some error, Please try again!!</h2>")
+				}
+			});
+		})
+	</script>
 </div>
 
 </html>
